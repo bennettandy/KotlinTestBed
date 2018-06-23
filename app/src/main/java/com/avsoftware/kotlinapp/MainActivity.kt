@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        // set home fragment
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.content_frame, HomeFragment.newInstance(), "Home")
-                .commit()
+//        // set home fragment
+//        supportFragmentManager.beginTransaction()
+//                .replace(R.id.content_frame, HomeFragment.newInstance(), "Home")
+//                .commit()
 
         doStuff()
     }
