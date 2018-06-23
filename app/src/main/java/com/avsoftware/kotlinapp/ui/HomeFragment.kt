@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        viewBinding = HomeFragmentBinding.inflate(LayoutInflater.from(context))
+        viewBinding = HomeFragmentBinding.inflate(inflater)
 
         return viewBinding.root
     }
