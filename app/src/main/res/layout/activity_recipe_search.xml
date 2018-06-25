@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.avsoftware.kotlinapp.ui.recipe.SearchActivityViewModel" />
+
+        <variable
+            name="activity"
+            type="android.support.v7.app.AppCompatActivity" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:id="@+id/top_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:id="@+id/popup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text="@string/loading_recipes"
+                android:textColor="@color/white"
+                android:visibility="@{viewModel.isRefreshing ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text="@{@string/progress_text(viewModel.currentProgress, viewModel.progressTarget)}"
+                android:textColor="@color/white"
+                android:visibility="@{viewModel.currentProgress != viewModel.progressTarget ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/errorDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text="@string/load_error"
+                android:textColor="@color/white"
+                android:visibility="@{viewModel.didError ? View.VISIBLE : View.GONE}" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_items"
+            app:setPowerAdapter="@{viewModel.getRecipeAdapter()}" />
+
+
+    </RelativeLayout>
+</layout>
