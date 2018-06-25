@@ -9,6 +9,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.avsoftware.kotlinapp.KotlinApp;
 import com.avsoftware.kotlinapp.databinding.ActivityRecipeSearchBinding;
 
 import javax.inject.Inject;
@@ -70,6 +71,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDisposable = new CompositeDisposable();
+
+        KotlinApp.getGraph().inject(this);
 
         View root = bindViewComponents();
 

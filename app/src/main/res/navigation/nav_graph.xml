@@ -18,4 +18,8 @@
         android:name="com.avsoftware.kotlinapp.ui.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.avsoftware.kotlinapp.ui.recipe.SearchActivity"
+        android:label="SearchActivity" />
 </navigation>

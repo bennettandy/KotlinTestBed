@@ -26,7 +26,6 @@ public class Retrofit2Module {
     private final static int TIMEOUT_WRITE = 15; // 15 secs
 
     @Provides
-    @Singleton
     static Retrofit provideSafetonetRetrofit(Retrofit.Builder builder) {
         return builder.baseUrl("https://dev2.safetonet.com/SafeToNet" + "/").build();
     }
@@ -40,13 +39,11 @@ public class Retrofit2Module {
     }
 
     @Provides
-    @Singleton
     static Gson provideGson() {
         return new GsonBuilder().create();
     }
 
     @Provides
-    @Singleton
     static OkHttpClient.Builder provideOkHttpBuilder() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         // Set Timeouts
@@ -57,7 +54,6 @@ public class Retrofit2Module {
     }
 
     @Provides
-    @Singleton
     static OkHttpClient provideOkHttpClient(OkHttpClient.Builder builder, @Named("debugInterceptor") Interceptor debugInterceptor) {
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(debugInterceptor);
