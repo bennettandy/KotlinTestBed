@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.avsoftware.kotlinapp.databinding.HomeFragmentBinding
+import timber.log.Timber
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
+//    companion object {
+//        fun newInstance() = HomeFragment()
+//    }
 
     private lateinit var viewModel: HomeViewModel
 
@@ -31,6 +32,8 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+
+        viewBinding.recipeBtn.setOnClickListener({ v -> Timber.d("Click")  })
     }
 
 }
