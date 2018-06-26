@@ -6,8 +6,6 @@ import com.avsoftware.data.recipe.RecipeProviderImpl;
 import com.avsoftware.domain.recipe.RecipeProvider;
 import com.avsoftware.domain.recipe.RecipeRepository;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -17,7 +15,7 @@ class RecipeModule {
 
     @Provides
     static RecipeApi provideRecipeApi(Retrofit retrofit){
-        return retrofit.create(RecipeApiImpl.class);
+        return new RecipeApiImpl(retrofit);
     }
 
     @Provides

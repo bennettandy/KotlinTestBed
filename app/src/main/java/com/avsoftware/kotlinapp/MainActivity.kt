@@ -1,6 +1,5 @@
 package com.avsoftware.kotlinapp
 
-import android.app.DownloadManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -8,10 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
-import com.avsoftware.kotlinapp.ui.DashboardFragment
-import com.avsoftware.kotlinapp.ui.NotificationsFragment
+import com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment
+import com.avsoftware.kotlinapp.ui.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.async
 import java.math.BigDecimal
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {

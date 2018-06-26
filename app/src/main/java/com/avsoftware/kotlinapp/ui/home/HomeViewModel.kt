@@ -1,4 +1,4 @@
-package com.avsoftware.kotlinapp.ui
+package com.avsoftware.kotlinapp.ui.home
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField

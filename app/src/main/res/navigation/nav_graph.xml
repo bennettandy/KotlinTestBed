@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.avsoftware.kotlinapp.ui.HomeFragment"
+        android:name="com.avsoftware.kotlinapp.ui.home.HomeFragment"
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.avsoftware.kotlinapp.ui.DashboardFragment"
+        android:name="com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment"
         android:label="DashboardFragment" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.avsoftware.kotlinapp.ui.NotificationsFragment"
+        android:name="com.avsoftware.kotlinapp.ui.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
     <activity

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.avsoftware.kotlinapp.KotlinApp;
+import com.avsoftware.kotlinapp.dagger.ApplicationComponent;
 import com.avsoftware.kotlinapp.databinding.ActivityRecipeSearchBinding;
 
 import javax.inject.Inject;
@@ -31,48 +32,49 @@ public class SearchActivity extends AppCompatActivity {
 
     private CompositeDisposable mDisposable;
 
-    public SearchActivity() {
-        super();
-
-        getLifecycle().addObserver(new LifecycleObserver() {
-            @OnLifecycleEvent(ON_STOP)
-            void onStopped() {
-                Timber.d("Lifecycle STOPPED");
-            }
-
-            @OnLifecycleEvent(ON_CREATE)
-            void onCreate() {
-                Timber.d("Lifecycle CREATE");
-            }
-
-            @OnLifecycleEvent(ON_DESTROY)
-            void onDestroy() {
-                Timber.d("Lifecycle DESTROY");
-            }
-
-            @OnLifecycleEvent(ON_PAUSE)
-            void onPause() {
-                Timber.d("Lifecycle PAUSE");
-            }
-
-            @OnLifecycleEvent(ON_RESUME)
-            void onResume() {
-                Timber.d("Lifecycle RESUME");
-            }
-
-            @OnLifecycleEvent(ON_START)
-            void onStart() {
-                Timber.d("Lifecycle START");
-            }
-        });
-    }
+//    public SearchActivity() {
+//        super();
+//
+//        getLifecycle().addObserver(new LifecycleObserver() {
+//            @OnLifecycleEvent(ON_STOP)
+//            void onStopped() {
+//                Timber.d("Lifecycle STOPPED");
+//            }
+//
+//            @OnLifecycleEvent(ON_CREATE)
+//            void onCreate() {
+//                Timber.d("Lifecycle CREATE");
+//            }
+//
+//            @OnLifecycleEvent(ON_DESTROY)
+//            void onDestroy() {
+//                Timber.d("Lifecycle DESTROY");
+//            }
+//
+//            @OnLifecycleEvent(ON_PAUSE)
+//            void onPause() {
+//                Timber.d("Lifecycle PAUSE");
+//            }
+//
+//            @OnLifecycleEvent(ON_RESUME)
+//            void onResume() {
+//                Timber.d("Lifecycle RESUME");
+//            }
+//
+//            @OnLifecycleEvent(ON_START)
+//            void onStart() {
+//                Timber.d("Lifecycle START");
+//            }
+//        });
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDisposable = new CompositeDisposable();
 
-        KotlinApp.getGraph().inject(this);
+        ApplicationComponent appComponent = KotlinApp.getGraph();
+                appComponent.inject(this);
 
         View root = bindViewComponents();
 

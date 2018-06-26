@@ -14,6 +14,7 @@ class KotlinApp: Application(){
         //platformStatic allow access it from java code
         @JvmStatic lateinit var graph: ApplicationComponent
     }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -24,6 +25,7 @@ class KotlinApp: Application(){
         graph = DaggerApplicationComponent.builder()
                 .dataComponent(dataComponent)
                 .uIModule(UIModule()).build()
+
         graph.inject(this)
 
         setUpLogging()
