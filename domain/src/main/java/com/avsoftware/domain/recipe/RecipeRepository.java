@@ -3,6 +3,7 @@ package com.avsoftware.domain.recipe;
 import com.jakewharton.rxrelay2.BehaviorRelay;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
@@ -32,6 +33,7 @@ public class RecipeRepository {
 
     public Completable connectSearch() {
         return searchRecipe
+                .debounce(200, TimeUnit.MILLISECONDS)
                 .filter(s -> s.length() > 2)
                 .distinctUntilChanged()
                 .flatMapSingle(mRecipeProvider::searchRecipes)
