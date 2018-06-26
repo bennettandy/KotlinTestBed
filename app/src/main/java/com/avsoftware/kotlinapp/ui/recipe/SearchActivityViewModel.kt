@@ -16,6 +16,7 @@ import com.nextfaze.poweradapters.binding.Binder
 import com.nextfaze.poweradapters.binding.ViewHolderBinder
 import com.nextfaze.poweradapters.rxjava2.ObservableAdapterBuilder
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Completable
 
 /**
  * Created by abennett on 24/03/2018.
@@ -52,4 +53,6 @@ class SearchActivityViewModel(private val mRecipeRepository: RecipeRepository): 
             builder.contents(mRecipeRepository.recipeList)
             return builder.build()
         }
+
+    fun connectSearch() = mRecipeRepository.connectSearch()
 }

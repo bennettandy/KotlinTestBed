@@ -18,13 +18,6 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;
 
-import static android.arch.lifecycle.Lifecycle.Event.ON_CREATE;
-import static android.arch.lifecycle.Lifecycle.Event.ON_DESTROY;
-import static android.arch.lifecycle.Lifecycle.Event.ON_PAUSE;
-import static android.arch.lifecycle.Lifecycle.Event.ON_RESUME;
-import static android.arch.lifecycle.Lifecycle.Event.ON_START;
-import static android.arch.lifecycle.Lifecycle.Event.ON_STOP;
-
 public class SearchActivity extends AppCompatActivity {
 
     @Inject
@@ -32,41 +25,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private CompositeDisposable mDisposable;
 
-//    public SearchActivity() {
-//        super();
-//
-//        getLifecycle().addObserver(new LifecycleObserver() {
-//            @OnLifecycleEvent(ON_STOP)
-//            void onStopped() {
-//                Timber.d("Lifecycle STOPPED");
-//            }
-//
-//            @OnLifecycleEvent(ON_CREATE)
-//            void onCreate() {
-//                Timber.d("Lifecycle CREATE");
-//            }
-//
-//            @OnLifecycleEvent(ON_DESTROY)
-//            void onDestroy() {
-//                Timber.d("Lifecycle DESTROY");
-//            }
-//
-//            @OnLifecycleEvent(ON_PAUSE)
-//            void onPause() {
-//                Timber.d("Lifecycle PAUSE");
-//            }
-//
-//            @OnLifecycleEvent(ON_RESUME)
-//            void onResume() {
-//                Timber.d("Lifecycle RESUME");
-//            }
-//
-//            @OnLifecycleEvent(ON_START)
-//            void onStart() {
-//                Timber.d("Lifecycle START");
-//            }
-//        });
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +45,9 @@ public class SearchActivity extends AppCompatActivity {
         mViewBinding.setViewModel(mViewModel);
         mViewBinding.setActivity(this);
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // connect search
+        mDisposable.add(mViewModel.connectSearch().subscribe());
 
         // Live Data, pins observer to Activity lifecycle, cleans up self
 //        mViewModel.getRecipeClickedLiveData().observe(this, recipeWrapper -> {

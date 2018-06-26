@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,9 +24,11 @@ public class Retrofit2Module {
     private final static int TIMEOUT_READ = 15; // 15 secs
     private final static int TIMEOUT_WRITE = 15; // 15 secs
 
+    private static final String FOOD_2_FORK_BASE_URL = "http://food2fork.com";
+
     @Provides
     static Retrofit provideSafetonetRetrofit(Retrofit.Builder builder) {
-        return builder.baseUrl("https://dev2.safetonet.com/SafeToNet" + "/").build();
+        return builder.baseUrl(FOOD_2_FORK_BASE_URL + "/").build();
     }
 
     @Provides

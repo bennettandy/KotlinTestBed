@@ -11,8 +11,9 @@ internal class RecipeViewHolder(view: View) : ViewHolder(view) {
     // Elvis operator, assign existing binding or Bind a fresh one
     private val recipeCardBinding: RecipeCardBinding = DataBindingUtil.getBinding(view) ?: RecipeCardBinding.bind(view)
 
-    fun bindViewHolder(wrapper: RecipeInfo, recipeUrlClicked: Relay<RecipeInfo>) {
+    fun bindViewHolder(recipe: RecipeInfo, recipeUrlClicked: Relay<RecipeInfo>) {
         //recipeCardBinding.recipeDetails = wrapper.details // bind recipe for display
-        recipeCardBinding.setRecipeClicked { _ -> recipeUrlClicked.accept(wrapper) } // on click handler passes recipe parameter to Relay
+        recipeCardBinding.recipeInfo = recipe
+        recipeCardBinding.setRecipeClicked { _ -> recipeUrlClicked.accept(recipe) } // on click handler passes recipe parameter to Relay
     }
 }
