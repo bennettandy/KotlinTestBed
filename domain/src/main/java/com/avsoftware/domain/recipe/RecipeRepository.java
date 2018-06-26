@@ -1,6 +1,5 @@
 package com.avsoftware.domain.recipe;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.jakewharton.rxrelay2.BehaviorRelay;
@@ -15,13 +14,14 @@ import io.reactivex.schedulers.Schedulers;
 public class RecipeRepository {
     // regex to obtain recipe id from recipe url
     public final MutableLiveData<Boolean> isRefreshing; // is refreshing flag for UI
+    public final MutableLiveData<Boolean> didError; // error flag for UI
 
-    public final BehaviorRelay<Boolean> didError; // error flag for UI
     public final BehaviorRelay<List<RecipeInfo>> recipeList;
     public final BehaviorRelay<String> searchRecipe;
+
     // progress info
-    public final BehaviorRelay<Integer> progressTarget; // Final progress value
-    public final BehaviorRelay<Integer> currentProgress; // current progress value
+    public final MutableLiveData<Integer> progressTarget; // Final progress value
+    public final MutableLiveData<Integer> currentProgress; // current progress value
     // api
     private final RecipeProvider mRecipeProvider;
 
@@ -29,10 +29,10 @@ public class RecipeRepository {
         mRecipeProvider = provider;
         recipeList = BehaviorRelay.create();
         searchRecipe = BehaviorRelay.createDefault("");
-        isRefreshing = new MutableLiveData<>(); //BehaviorRelay.createDefault(false);
-        progressTarget = BehaviorRelay.createDefault(0);
-        currentProgress = BehaviorRelay.createDefault(0);
-        didError = BehaviorRelay.createDefault(false); // error flag
+        isRefreshing = new MutableLiveData<>();
+        progressTarget = provider.getProgressTarget();
+        currentProgress = provider.getCurrentProgress();
+        didError = new MutableLiveData<>(); // error flag
     }
 
     public Completable connectSearch() {
@@ -41,9 +41,11 @@ public class RecipeRepository {
                 .filter(s -> s.length() > 2)
                 .distinctUntilChanged()
                 .doOnNext(__ -> isRefreshing.postValue(true))
+                .doOnNext(__ -> didError.postValue(false))
                 .flatMapSingle(mRecipeProvider::searchRecipes)
                 .doOnNext(recipeList)
                 .doOnEach(__ -> isRefreshing.postValue(false))
+                .doOnError(__ -> didError.postValue(true))
                 .ignoreElements()
                 .subscribeOn(Schedulers.io());
     }

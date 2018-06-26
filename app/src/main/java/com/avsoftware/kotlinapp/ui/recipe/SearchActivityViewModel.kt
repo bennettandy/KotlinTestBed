@@ -28,10 +28,10 @@ class SearchActivityViewModel(private val mRecipeRepository: RecipeRepository): 
 
     val isRefreshing = mRecipeRepository.isRefreshing
 
-    val didError: LiveData<Boolean> = LiveDataReactiveStreams.fromPublisher(mRecipeRepository.didError.toFlowable(BackpressureStrategy.DROP))
+    val didError: LiveData<Boolean> = mRecipeRepository.didError
     val recipeClicked: PublishRelay<RecipeInfo> = PublishRelay.create()
-    val currentProgress: LiveData<Int> = LiveDataReactiveStreams.fromPublisher(mRecipeRepository.currentProgress.toFlowable(BackpressureStrategy.DROP))
-    val progressTarget: LiveData<Int> =  LiveDataReactiveStreams.fromPublisher(mRecipeRepository.progressTarget.toFlowable(BackpressureStrategy.DROP))
+    val currentProgress: LiveData<Int> = mRecipeRepository.currentProgress
+    val progressTarget: LiveData<Int> =  mRecipeRepository.progressTarget
     val recipeClickedLiveData: LiveData<RecipeInfo> = LiveDataReactiveStreams.fromPublisher(recipeClicked.toFlowable(BackpressureStrategy.DROP))
     val queryText: BehaviorRelay<String> = BehaviorRelay.createDefault("")
     val searchTrigger: Relay<String> = mRecipeRepository.searchRecipe

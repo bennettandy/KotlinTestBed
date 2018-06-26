@@ -4,13 +4,13 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.View
 import com.avsoftware.kotlinapp.KotlinApp
 import com.avsoftware.kotlinapp.R
 import com.avsoftware.kotlinapp.databinding.ActivityRecipeSearchBinding
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Action
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,7 +39,7 @@ class SearchActivity : AppCompatActivity() {
 
         mViewBinding.viewModel = mViewModel
         mViewBinding.activity = this
-        mViewBinding.recyclerView.layoutManager = LinearLayoutManager(this)
+        mViewBinding.recyclerView.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
 
         // connect search
         mDisposable.add(mViewModel.connectSearch()
@@ -85,12 +85,12 @@ class SearchActivity : AppCompatActivity() {
         // Refactor into custom binder?
         mViewBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                mViewModel!!.searchTrigger.accept(query)
+                mViewModel.searchTrigger.accept(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                mViewModel!!.queryText.accept(newText)
+                mViewModel.queryText.accept(newText)
                 return true
             }
         })

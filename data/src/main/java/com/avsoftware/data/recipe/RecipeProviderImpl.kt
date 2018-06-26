@@ -5,23 +5,37 @@ import com.avsoftware.domain.recipe.RecipeProvider
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class RecipeProviderImpl(val recipeApi: RecipeApi) : RecipeProvider {
+class RecipeProviderImpl(val recipeApi: RecipeApi) : RecipeProvider() {
 
-    override fun searchRecipes(searchString: String?): Single<List<RecipeInfo>> {
-
-        return Single.just(searchString)
-                .map { t: String -> RecipeSearchRequest(t) }
-                .flatMap { request: RecipeSearchRequest ->
-                    recipeApi.getRecipes(request)
-                            .flatMap { recipes: MutableList<Recipe> ->
-                                Observable.fromIterable(recipes)
-                                        .flatMapSingle { recipe: Recipe ->
-                                            Single.just(recipe)
-                                                    .flatMap { r: Recipe -> recipeApi.getRecipeDetails(r.recipeId()) }
-                                                    .map { details: RecipeDetails -> RecipeInfo(recipe.title, details.imageUrl) }
-                                        }
-                                        .toList()
-                            }
-                }
-    }
+    override fun searchRecipes(searchString: String?) = Single.just(searchString)
+            .doOnSubscribe() { _ ->
+                progressTarget.postValue(0)
+                currentProgress.postValue(0)
+            }
+            .map { t: String -> RecipeSearchRequest(t) }
+            .flatMap { request: RecipeSearchRequest ->
+                recipeApi.getRecipes(request)
+                        .doOnSuccess { t: MutableList<Recipe>? ->
+                            progressTarget.postValue(t?.size ?: 0)
+                        }
+                        .flatMap { recipes: MutableList<Recipe> ->
+                            Observable.fromIterable(recipes)
+                                    .flatMapSingle { recipe: Recipe ->
+                                        Single.just(recipe)
+                                                .flatMap { r: Recipe -> recipeApi.getRecipeDetails(r.recipeId()) }
+                                                .map { details: RecipeDetails -> RecipeInfo(recipe.title, details.imageUrl) }
+                                                .doOnSuccess { _ ->
+                                                    with(currentProgress) {
+                                                        // todo: progress never seems to reach max, due to post?
+                                                        postValue(value?.plus(1) ?: 0)
+                                                    }
+                                                }
+                                    }
+                                    .toList()
+                                    .doOnEvent({ t1, t2 ->
+                                        progressTarget.postValue(0)
+                                        currentProgress.postValue(0)
+                                    })
+                        }
+            }
 }
