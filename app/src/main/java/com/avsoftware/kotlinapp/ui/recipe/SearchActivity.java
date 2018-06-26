@@ -2,6 +2,7 @@ package com.avsoftware.kotlinapp.ui.recipe;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.avsoftware.kotlinapp.KotlinApp;
+import com.avsoftware.kotlinapp.R;
 import com.avsoftware.kotlinapp.dagger.ApplicationComponent;
 import com.avsoftware.kotlinapp.databinding.ActivityRecipeSearchBinding;
 
@@ -41,7 +43,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private View bindViewComponents() {
 
-        ActivityRecipeSearchBinding mViewBinding = ActivityRecipeSearchBinding.inflate(LayoutInflater.from(this));
+        ActivityRecipeSearchBinding mViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_search);
+        mViewBinding.setLifecycleOwner(this);
+
         mViewBinding.setViewModel(mViewModel);
         mViewBinding.setActivity(this);
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
