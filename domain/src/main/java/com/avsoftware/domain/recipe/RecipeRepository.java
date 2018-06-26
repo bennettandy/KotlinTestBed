@@ -1,5 +1,8 @@
 package com.avsoftware.domain.recipe;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+
 import com.jakewharton.rxrelay2.BehaviorRelay;
 
 import java.util.List;
@@ -11,7 +14,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RecipeRepository {
     // regex to obtain recipe id from recipe url
-    public final BehaviorRelay<Boolean> isRefreshing; // is refreshing flag for UI
+    public final MutableLiveData<Boolean> isRefreshing; // is refreshing flag for UI
+
     public final BehaviorRelay<Boolean> didError; // error flag for UI
     public final BehaviorRelay<List<RecipeInfo>> recipeList;
     public final BehaviorRelay<String> searchRecipe;
@@ -25,7 +29,7 @@ public class RecipeRepository {
         mRecipeProvider = provider;
         recipeList = BehaviorRelay.create();
         searchRecipe = BehaviorRelay.createDefault("");
-        isRefreshing = BehaviorRelay.createDefault(false);
+        isRefreshing = new MutableLiveData<>(); //BehaviorRelay.createDefault(false);
         progressTarget = BehaviorRelay.createDefault(0);
         currentProgress = BehaviorRelay.createDefault(0);
         didError = BehaviorRelay.createDefault(false); // error flag
@@ -36,8 +40,10 @@ public class RecipeRepository {
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .filter(s -> s.length() > 2)
                 .distinctUntilChanged()
+                .doOnNext(__ -> isRefreshing.postValue(true))
                 .flatMapSingle(mRecipeProvider::searchRecipes)
                 .doOnNext(recipeList)
+                .doOnEach(__ -> isRefreshing.postValue(false))
                 .ignoreElements()
                 .subscribeOn(Schedulers.io());
     }

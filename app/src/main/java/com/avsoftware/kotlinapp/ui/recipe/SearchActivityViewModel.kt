@@ -2,6 +2,7 @@ package com.avsoftware.kotlinapp.ui.recipe
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.LiveDataReactiveStreams
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.view.View
 import com.avsoftware.domain.recipe.RecipeInfo
@@ -25,7 +26,8 @@ import io.reactivex.Completable
 
 class SearchActivityViewModel(private val mRecipeRepository: RecipeRepository): ViewModel() {
 
-    val isRefreshing: LiveData<Boolean> = LiveDataReactiveStreams.fromPublisher(mRecipeRepository.isRefreshing.toFlowable(BackpressureStrategy.DROP))
+    val isRefreshing = mRecipeRepository.isRefreshing
+
     val didError: LiveData<Boolean> = LiveDataReactiveStreams.fromPublisher(mRecipeRepository.didError.toFlowable(BackpressureStrategy.DROP))
     val recipeClicked: PublishRelay<RecipeInfo> = PublishRelay.create()
     val currentProgress: LiveData<Int> = LiveDataReactiveStreams.fromPublisher(mRecipeRepository.currentProgress.toFlowable(BackpressureStrategy.DROP))
