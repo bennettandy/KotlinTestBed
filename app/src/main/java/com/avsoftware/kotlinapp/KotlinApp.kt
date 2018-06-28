@@ -12,11 +12,14 @@ class KotlinApp: Application(){
 
     companion object {
         //platformStatic allow access it from java code
-        @JvmStatic lateinit var graph: ApplicationComponent
+        @JvmStatic lateinit var graph: ApplicationComponent private set
+        @JvmStatic lateinit var app: KotlinApp private set
     }
 
     override fun onCreate() {
         super.onCreate()
+
+        app = this
 
         // Data Module Application Component from Dagger
         val dataComponent: DataComponent = DaggerDataComponent.builder().build();
