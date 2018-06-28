@@ -11,5 +11,7 @@
     <string name="loading_recipe">Loading Recipe</string>
     <string name="progress_text">Loading %1$d of %2$d</string>
     <string name="load_error">Something went wrong, please try later</string>
+    <string name="ingredients_label">Ingredients</string>
+
 
 </resources>

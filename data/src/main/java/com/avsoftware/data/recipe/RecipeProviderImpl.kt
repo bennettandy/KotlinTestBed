@@ -23,10 +23,11 @@ class RecipeProviderImpl(val recipeApi: RecipeApi) : RecipeProvider() {
                                     .flatMapSingle { recipe: Recipe ->
                                         Single.just(recipe)
                                                 .flatMap { r: Recipe -> recipeApi.getRecipeDetails(r.recipeId()) }
-                                                .map { details: RecipeDetails -> RecipeInfo(recipe.title, details.imageUrl) }
+                                                .map { details: RecipeDetails -> RecipeInfo(recipe.title,
+                                                        details.imageUrl, details.ingredients) }
                                                 .doOnSuccess { _ ->
                                                     with(currentProgress) {
-                                                        // todo: progress never seems to reach max, due to post?
+                                                        // todo: progress never seems to reach max, due to post being asynchronous?
                                                         postValue(value?.plus(1) ?: 0)
                                                     }
                                                 }
