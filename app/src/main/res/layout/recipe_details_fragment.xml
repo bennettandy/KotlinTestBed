@@ -10,12 +10,8 @@
         <import type="android.text.Html" />
 
         <variable
-            name="recipe"
-            type="com.avsoftware.domain.recipe.RecipeInfo" />
-
-        <variable
-            name="ingredients"
-            type="com.nextfaze.poweradapters.PowerAdapter" />
+            name="viewModel"
+            type="com.avsoftware.kotlinapp.ui.recipe.RecipeDetailsViewModel" />
 
     </data>
 
@@ -34,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@{Html.fromHtml(recipe.title)}"
+                android:text="@{Html.fromHtml(viewModel.title)}"
                 tools:text="Test Title" />
 
             <ImageView
@@ -43,7 +39,7 @@
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                app:loadRecipeImage="@{recipe.imageUrl}" />
+                app:loadRecipeImage="@{viewModel.recipeImageUrl}" />
 
             <TextView
                 style="@style/Base.TextAppearance.AppCompat.Medium"
@@ -61,7 +57,7 @@
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setPowerAdapter="@{ingredients}">
+                app:setPowerAdapter="@{viewModel.dashboardAdapter}">
 
             </android.support.v7.widget.RecyclerView>
 
