@@ -43,7 +43,7 @@
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                app:loadRecipeImage="@{recipe.recipeImageUrl}" />
+                app:loadRecipeImage="@{recipe.imageUrl}" />
 
             <TextView
                 style="@style/Base.TextAppearance.AppCompat.Medium"
