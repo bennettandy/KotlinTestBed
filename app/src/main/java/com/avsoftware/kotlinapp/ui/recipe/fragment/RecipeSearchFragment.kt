@@ -10,10 +10,12 @@ import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import com.avsoftware.domain.recipe.RecipeInfo
+import com.avsoftware.kotlinapp.KotlinApp
 import com.avsoftware.kotlinapp.R
 import com.avsoftware.kotlinapp.databinding.RecipeSearchFragmentBinding
-import com.avsoftware.kotlinapp.ui.recipe.SearchActivityViewModel
+import com.avsoftware.kotlinapp.ui.recipe.RecipeSearchViewModel
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +23,7 @@ import javax.inject.Inject
 class RecipeSearchFragment: Fragment() {
 
     @Inject
-    lateinit var mViewModel: SearchActivityViewModel
+    lateinit var mViewModelRecipe: RecipeSearchViewModel
 
     private lateinit var mViewBinding: RecipeSearchFragmentBinding
 
@@ -29,44 +31,60 @@ class RecipeSearchFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        KotlinApp.graph.inject(this)
+
         mViewBinding = DataBindingUtil.inflate(inflater, R.layout.recipe_search_fragment, container, false)
         mViewBinding.setLifecycleOwner(this)
 
         return mViewBinding.root
     }
 
-    private fun bindViewComponents(): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        mViewBinding.viewModel = mViewModel
+        mViewBinding.viewModel = mViewModelRecipe
 
         mViewBinding.recyclerView.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
 
         // connect search
-        mDisposable.add(mViewModel.connectSearch()
+        mDisposable.add(mViewModelRecipe.connectSearch()
                 .doOnError(Timber::e)
                 .subscribe())
 
+        mDisposable.add(mViewModelRecipe.recipeClicked
+                .doOnNext{ t: RecipeInfo? -> if (t != null) {
+                    val nav = NavHostFragment.findNavController(this@RecipeSearchFragment)
+                    val args = Bundle()
+                    args.putParcelable("recipe", t)
+                    nav.navigate(R.id.recipeDetailsFragment, args)
+                } }
+                .subscribe()
+        )
         // Live Data, pins observer to Activity lifecycle, cleans up self
-        mViewModel.recipeClicked.observe(this, object: Observer<RecipeInfo?> {
-            override fun onChanged(t: RecipeInfo?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        } )
+//        mViewModelRecipe.recipeClickedLiveData.observe(this, object: Observer<RecipeInfo?> {
+//            override fun onChanged(t: RecipeInfo?) {
+//                if (t != null) {
+//                    val nav = NavHostFragment.findNavController(this@RecipeSearchFragment)
+//                    val args = Bundle()
+//                    args.putParcelable("recipe", t)
+//                    nav.navigate(R.id.recipeDetailsFragment, args)
+//
+//                }
+//            }
+//        } )
 
         // Refactor into custom binder?
         mViewBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                mViewModel.searchTrigger.accept(query)
+                mViewModelRecipe.searchTrigger.accept(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                mViewModel.queryText.accept(newText)
+                mViewModelRecipe.queryText.accept(newText)
                 return true
             }
         })
-
-        return mViewBinding.root
     }
 
     override fun onDestroy() {

@@ -18,16 +18,17 @@
         android:name="com.avsoftware.kotlinapp.ui.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <activity
-        android:id="@+id/searchActivity"
-        android:name="com.avsoftware.kotlinapp.ui.recipe.SearchActivity"
-        android:label="SearchActivity" />
-    <activity
-        android:id="@+id/recipeDetails"
-        android:name="com.avsoftware.kotlinapp.ui.recipe.RecipeDetailsActivity"
-        android:label="RecipeDetailsActivity" >
+    <fragment
+        android:id="@+id/recipeSearchFragment"
+        android:name="com.avsoftware.kotlinapp.ui.recipe.fragment.RecipeSearchFragment"
+        android:label="RecipeSearchFragment" />
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.avsoftware.kotlinapp.ui.recipe.fragment.RecipeDetailsFragment"
+        android:label="RecipeDetailsFragment" >
         <argument
             android:name="recipe"
             app:type="reference" />
-    </activity>
+    </fragment>
+
 </navigation>

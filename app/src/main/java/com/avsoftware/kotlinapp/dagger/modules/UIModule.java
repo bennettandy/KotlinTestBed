@@ -1,7 +1,9 @@
 package com.avsoftware.kotlinapp.dagger.modules;
 
 import com.avsoftware.domain.recipe.RecipeRepository;
-import com.avsoftware.kotlinapp.ui.recipe.SearchActivityViewModel;
+import com.avsoftware.kotlinapp.ui.recipe.RecipeSearchViewModel;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -10,7 +12,8 @@ import dagger.Provides;
 public class UIModule {
 
     @Provides
-    static SearchActivityViewModel provideSearchActivityViewModel(RecipeRepository repository){
-        return new SearchActivityViewModel(repository);
+    @Singleton
+    static RecipeSearchViewModel provideSearchActivityViewModel(RecipeRepository repository){
+        return new RecipeSearchViewModel(repository);
     }
 }

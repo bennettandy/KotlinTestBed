@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
 
         viewBinding.recipeBtn.setOnClickListener { _ ->
             val nav = NavHostFragment.findNavController(this)
-            nav.navigate(R.id.searchActivity)
+            nav.navigate(R.id.recipeSearchFragment)
         }
     }
 

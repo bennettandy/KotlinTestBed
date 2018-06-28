@@ -3,12 +3,14 @@ package com.avsoftware.domain.recipe;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.jakewharton.rxrelay2.BehaviorRelay;
+import com.jakewharton.rxrelay2.PublishRelay;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 
 public class RecipeRepository {
@@ -17,7 +19,7 @@ public class RecipeRepository {
     public final MutableLiveData<Boolean> didError; // error flag for UI
 
     public final BehaviorRelay<List<RecipeInfo>> recipeList;
-    public final BehaviorRelay<String> searchRecipe;
+    public final PublishRelay<String> searchRecipe;
 
     // progress info
     public final MutableLiveData<Integer> progressTarget; // Final progress value
@@ -28,7 +30,7 @@ public class RecipeRepository {
     public RecipeRepository(RecipeProvider provider) {
         mRecipeProvider = provider;
         recipeList = BehaviorRelay.create();
-        searchRecipe = BehaviorRelay.createDefault("");
+        searchRecipe = PublishRelay.create();
         isRefreshing = new MutableLiveData<>();
         progressTarget = provider.getProgressTarget();
         currentProgress = provider.getCurrentProgress();
@@ -37,6 +39,7 @@ public class RecipeRepository {
 
     public Completable connectSearch() {
         return searchRecipe
+                .doOnNext(s -> Timber.d("Search Recipe %s", s))
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .filter(s -> s.length() > 2)
                 .distinctUntilChanged()

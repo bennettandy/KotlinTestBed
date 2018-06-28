@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.avsoftware.kotlinapp.ui.recipe.SearchActivityViewModel" />
+            type="com.avsoftware.kotlinapp.ui.recipe.RecipeSearchViewModel" />
 
     </data>
 

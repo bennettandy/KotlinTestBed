@@ -23,9 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.recipe.SearchActivity" />
-        <activity android:name=".ui.recipe.RecipeDetailsActivity" />
-
     </application>
 
 </manifest>
