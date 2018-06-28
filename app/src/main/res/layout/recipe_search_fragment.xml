@@ -10,10 +10,6 @@
             name="viewModel"
             type="com.avsoftware.kotlinapp.ui.recipe.SearchActivityViewModel" />
 
-        <variable
-            name="activity"
-            type="android.support.v7.app.AppCompatActivity" />
-
     </data>
 
     <RelativeLayout

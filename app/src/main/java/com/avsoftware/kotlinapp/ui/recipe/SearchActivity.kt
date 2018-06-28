@@ -1,5 +1,6 @@
 package com.avsoftware.kotlinapp.ui.recipe
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,9 +8,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.View
+import com.avsoftware.domain.recipe.RecipeInfo
 import com.avsoftware.kotlinapp.KotlinApp
 import com.avsoftware.kotlinapp.R
-import com.avsoftware.kotlinapp.databinding.ActivityRecipeSearchBinding
+import com.avsoftware.kotlinapp.databinding.RecipeSearchFragmentBinding
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +22,7 @@ class SearchActivity : AppCompatActivity() {
 
     private var mDisposable: CompositeDisposable = CompositeDisposable()
 
-    private lateinit var mViewBinding: ActivityRecipeSearchBinding
+    private lateinit var mViewBinding: RecipeSearchFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,7 @@ class SearchActivity : AppCompatActivity() {
         val appComponent = KotlinApp.graph
         appComponent.inject(this)
 
-        mViewBinding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_search)
+        mViewBinding = DataBindingUtil.setContentView(this, R.layout.recipe_search_fragment)
         mViewBinding.setLifecycleOwner(this)
 
         bindViewComponents()
@@ -38,7 +40,6 @@ class SearchActivity : AppCompatActivity() {
     private fun bindViewComponents(): View {
 
         mViewBinding.viewModel = mViewModel
-        mViewBinding.activity = this
         mViewBinding.recyclerView.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
 
         // connect search
@@ -47,13 +48,12 @@ class SearchActivity : AppCompatActivity() {
                 .subscribe())
 
         // Live Data, pins observer to Activity lifecycle, cleans up self
-        //        mViewModel.getRecipeClickedLiveData().observe(this, recipeWrapper -> {
-        //            Timber.d("Recipe Clicked");
-        //            if (recipeWrapper != null && recipeWrapper.getDetails() != null) {
-        //                Intent i = RecipeActivity.newIntent(recipeWrapper.getDetails(), SearchActivity.this);
-        //                startActivity(i);
-        //            }
-        //        });
+        mViewModel.recipeClicked.observe(this, object: Observer<RecipeInfo?> {
+            override fun onChanged(t: RecipeInfo?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        } )
+
 
         //        mDisposable.add(RxView.clicks(mViewBinding.purchaseButton)
         //                .throttleFirst(1, TimeUnit.SECONDS)
