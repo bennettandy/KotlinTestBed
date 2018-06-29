@@ -21,14 +21,15 @@
     <fragment
         android:id="@+id/recipeSearchFragment"
         android:name="com.avsoftware.kotlinapp.ui.recipe.fragment.RecipeSearchFragment"
-        android:label="RecipeSearchFragment" />
+        android:label="RecipeSearchFragment" >
+        <action
+            android:id="@+id/showRecipeDetails"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeDetailsFragment"
         android:name="com.avsoftware.kotlinapp.ui.recipe.fragment.RecipeDetailsFragment"
         android:label="RecipeDetailsFragment" >
-        <argument
-            android:name="recipe"
-            app:type="reference" />
     </fragment>
 
 </navigation>

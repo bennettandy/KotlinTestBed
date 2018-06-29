@@ -29,6 +29,8 @@ class RecipeDetailsFragment: Fragment() {
         if (recipe != null){
             mViewModel.setRecipeDetails(recipe)
         }
+
+
         return mViewBinding.root
     }
 

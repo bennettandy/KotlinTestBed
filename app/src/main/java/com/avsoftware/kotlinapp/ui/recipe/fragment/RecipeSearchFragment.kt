@@ -60,18 +60,6 @@ class RecipeSearchFragment: Fragment() {
                 } }
                 .subscribe()
         )
-        // Live Data, pins observer to Activity lifecycle, cleans up self
-//        mViewModelRecipe.recipeClickedLiveData.observe(this, object: Observer<RecipeInfo?> {
-//            override fun onChanged(t: RecipeInfo?) {
-//                if (t != null) {
-//                    val nav = NavHostFragment.findNavController(this@RecipeSearchFragment)
-//                    val args = Bundle()
-//                    args.putParcelable("recipe", t)
-//                    nav.navigate(R.id.recipeDetailsFragment, args)
-//
-//                }
-//            }
-//        } )
 
         // Refactor into custom binder?
         mViewBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
