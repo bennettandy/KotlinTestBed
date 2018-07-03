@@ -25,11 +25,17 @@ class RecipeDetailsFragment: Fragment() {
         mViewBinding.viewModel = mViewModel
         mViewBinding.recycler.layoutManager = LinearLayoutManager(context)
 
-        val recipe: RecipeInfo? = this.arguments?.getParcelable("recipe")
-        if (recipe != null){
-            mViewModel.setRecipeDetails(recipe)
-        }
+//        // a
+//        val recipe: RecipeInfo? = this.arguments?.getParcelable("recipe")
+//        if (recipe != null){
+//            mViewModel.setRecipeDetails(recipe)
+//        }
+//
+//        // b
+//        recipe?.let { mViewModel.setRecipeDetails(recipe) }
 
+        // if arguments not null and getParcelable returns a RecipeInfo then setRecipeDetails on viewmodel
+        this.arguments?.getParcelable<RecipeInfo?>("recipe")?.let { mViewModel.setRecipeDetails(it) }
 
         return mViewBinding.root
     }

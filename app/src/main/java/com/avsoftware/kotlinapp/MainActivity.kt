@@ -12,6 +12,8 @@ import com.avsoftware.kotlinapp.ui.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.math.BigDecimal
 
+import androidx.core.os.bundleOf
+
 class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {
 
     override fun onFragmentInteraction(uri: Uri) {
@@ -62,7 +64,8 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractio
 
         val url = "https://jsonplaceholder.typicode.com/posts/1"
 
-
+        val ctx = baseContext;
+        val bundle = bundleOf()
     }
 
     // Navigation allow intercept of back button by navigation controller
