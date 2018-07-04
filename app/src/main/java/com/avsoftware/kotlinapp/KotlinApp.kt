@@ -6,6 +6,7 @@ import com.avsoftware.data.dagger.DataComponent
 import com.avsoftware.kotlinapp.dagger.ApplicationComponent
 import com.avsoftware.kotlinapp.dagger.DaggerApplicationComponent
 import com.avsoftware.kotlinapp.dagger.modules.UIModule
+import rx_activity_result2.RxActivityResult
 import timber.log.Timber
 
 class KotlinApp: Application(){
@@ -21,6 +22,10 @@ class KotlinApp: Application(){
 
         app = this
 
+        setUpLogging()
+
+        RxActivityResult.register(this)
+
         // Data Module Application Component from Dagger
         val dataComponent: DataComponent = DaggerDataComponent.builder().build();
 
@@ -31,7 +36,6 @@ class KotlinApp: Application(){
 
         graph.inject(this)
 
-        setUpLogging()
     }
 
     private fun setUpLogging() {

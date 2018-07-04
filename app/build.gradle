@@ -83,6 +83,8 @@ dependencies {
     implementation 'com.nextfaze.poweradapters:power-adapters-kotlin:0.15.0'
     implementation 'com.nextfaze.poweradapters:power-adapters-recyclerview-v7-kotlin:0.15.0'
     implementation 'com.github.dmstocking:support-optional:1.2'
+    // Rx Activity Result
+    implementation 'com.github.VictorAlbertos:RxActivityResult:0.4.5-2.x'
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -111,6 +113,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21'
     implementation project(':data')
     implementation project(':domain')
+
+    // firebase authentication
+    implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
