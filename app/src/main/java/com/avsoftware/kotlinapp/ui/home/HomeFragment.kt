@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 
-
-
 class HomeFragment : Fragment() {
 
     companion object {
@@ -56,12 +54,19 @@ class HomeFragment : Fragment() {
         viewBinding.authenticationButton.setOnClickListener { _ ->
             launchAuthenticationFlow()
         }
+
+        viewBinding.signOutButton.setOnClickListener {
+            _ -> FirebaseAuth.getInstance().signOut()
+        }
     }
 
     private fun launchAuthenticationFlow() {
 
         // Choose authentication providers
-        val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build())
+        val providers = listOf(AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.PhoneBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build()
+                )
 
 //                Arrays.asList(
 //                AuthUI.IdpConfig.EmailBuilder().build(),
@@ -91,10 +96,21 @@ class HomeFragment : Fragment() {
         Timber.d("Got Result Data: ${result.data()?.extras ?: "none" }")
 
         if (result.resultCode() == RESULT_OK) {
-            // Successfully signed in
-            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: 0
+            Timber.d("Result OK")
 
-            Timber.d("Successful Authentication: $userId")
+            val userAuth = FirebaseAuth.getInstance()
+            if (userAuth != null) {
+                // Successfully signed in
+                val userId = userAuth?.currentUser?.let {
+                    Timber.d("Successful Authentication: ${it.uid}")
+
+                    if (!it.isEmailVerified){
+                        it.sendEmailVerification()
+                    }
+                }
+
+                userAuth.currentUser?.let{handleLoggedInUser(it)}
+            }
             // ...
         } else {
             // Sign in failed. If response is null the user canceled the
@@ -103,6 +119,46 @@ class HomeFragment : Fragment() {
             // ...
             Timber.d("Authentication Failed")
         }
+    }
+
+    private fun handleLoggedInUser(user: FirebaseUser) {
+        val name = user.displayName
+        val email = user.email
+        val photoUrl = user.photoUrl
+        val verified = user.isEmailVerified
+        val uuid = user.uid
+
+        Timber.d("User $name, $email, $photoUrl, $verified, $uuid")
+/*
+FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+if (user != null) {
+    // Name, email address, and profile photo Url
+    String name = user.getDisplayName();
+    String email = user.getEmail();
+    Uri photoUrl = user.getPhotoUrl();
+
+    // Check if user's email is verified
+    boolean emailVerified = user.isEmailVerified();
+
+    // The user's ID, unique to the Firebase project. Do NOT use this value to
+    // authenticate with your backend server, if you have one. Use
+    // FirebaseUser.getIdToken() instead.
+    String uid = user.getUid();
+}
+ */
+    }
+
+    private fun logOutUser() {
+        val auth = FirebaseAuth.getInstance()
+
+        auth?.let {
+            val user = it.currentUser
+            user?.let {
+                Timber.d("Current user from Auth: ${it.uid}")
+            }
+        }
+
+
     }
 
     override fun onDestroy() {
