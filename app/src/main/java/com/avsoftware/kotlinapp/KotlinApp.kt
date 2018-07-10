@@ -5,7 +5,6 @@ import com.avsoftware.data.dagger.DaggerDataComponent
 import com.avsoftware.data.dagger.DataComponent
 import com.avsoftware.kotlinapp.dagger.ApplicationComponent
 import com.avsoftware.kotlinapp.dagger.DaggerApplicationComponent
-import com.avsoftware.kotlinapp.dagger.modules.UIModule
 import rx_activity_result2.RxActivityResult
 import timber.log.Timber
 
@@ -22,8 +21,9 @@ class KotlinApp: Application(){
 
         app = this
 
-        setUpLogging()
-
+        // logging framework
+        Timber.plant(Timber.DebugTree())
+        // Rx Activity Result handler
         RxActivityResult.register(this)
 
         // Data Module Application Component from Dagger
@@ -32,19 +32,9 @@ class KotlinApp: Application(){
         // Dagger Application Component
         graph = DaggerApplicationComponent.builder()
                 .dataComponent(dataComponent)
-                .uIModule(UIModule()).build()
+                .build()
 
         graph.inject(this)
 
     }
-
-    private fun setUpLogging() {
-        // if (BuildConfig.DEBUG) {
-        // always debug for development
-        Timber.plant(Timber.DebugTree())
-        //        } else {
-        //            //Timber.plant(new CrashReportingTree());
-        //        }
-    }
-
 }
