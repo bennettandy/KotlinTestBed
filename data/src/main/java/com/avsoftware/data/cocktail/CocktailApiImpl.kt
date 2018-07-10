@@ -8,7 +8,7 @@ class CocktailApiImpl(val retrofit: Retrofit) : CocktailApi {
 
     val  api: ICocktailRetrofit = retrofit.create(ICocktailRetrofit::class.java)
 
-    override fun randomCocktail(): Single<CocktailInfo> {
+    override fun randomCocktail(): Single<CocktailArray> {
         return api.getRandomCocktail()
     }
 
@@ -21,9 +21,9 @@ class CocktailApiImpl(val retrofit: Retrofit) : CocktailApi {
     }
 }
 
-interface ICocktailRetrofit {
 
+interface ICocktailRetrofit {
     @GET("random.php")
-    fun getRandomCocktail(): Single<CocktailInfo>
+    fun getRandomCocktail(): Single<CocktailArray>
 
 }

@@ -1,9 +1,11 @@
 package com.avsoftware.data.dagger;
 
 import com.avsoftware.data.BuildConfig;
+import com.avsoftware.data.gson.DateDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
@@ -34,7 +36,9 @@ class Retrofit2Module {
 
     @Provides
     static Gson provideGson() {
-        return new GsonBuilder().create();
+        return new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
     }
 
     @Provides

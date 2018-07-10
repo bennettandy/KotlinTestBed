@@ -2,6 +2,10 @@ package com.avsoftware.data.cocktail
 
 import java.util.*
 
+data class CocktailArray(
+        val drinks: List<CocktailInfo>
+)
+
 // Local Data class for API binding
 // translate to Domain Class before passing to UI
 data class CocktailInfo(
