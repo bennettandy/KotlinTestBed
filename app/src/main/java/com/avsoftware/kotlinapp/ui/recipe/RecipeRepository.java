@@ -1,7 +1,9 @@
-package com.avsoftware.domain.recipe;
+package com.avsoftware.kotlinapp.ui.recipe;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.avsoftware.domain.recipe.RecipeInfo;
+import com.avsoftware.domain.recipe.RecipeProvider;
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import com.jakewharton.rxrelay2.PublishRelay;
 

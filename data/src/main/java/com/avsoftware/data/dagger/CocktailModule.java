@@ -2,11 +2,6 @@ package com.avsoftware.data.dagger;
 
 import com.avsoftware.data.cocktail.CocktailApi;
 import com.avsoftware.data.cocktail.CocktailApiImpl;
-import com.avsoftware.data.recipe.RecipeApi;
-import com.avsoftware.data.recipe.RecipeApiImpl;
-import com.avsoftware.data.recipe.RecipeProviderImpl;
-import com.avsoftware.domain.recipe.RecipeProvider;
-import com.avsoftware.domain.recipe.RecipeRepository;
 
 import javax.inject.Named;
 

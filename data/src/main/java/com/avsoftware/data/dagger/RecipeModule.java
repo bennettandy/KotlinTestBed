@@ -1,10 +1,9 @@
 package com.avsoftware.data.dagger;
 
-import com.avsoftware.data.recipe.RecipeApi;
-import com.avsoftware.data.recipe.RecipeApiImpl;
+import com.avsoftware.data.recipe.api.RecipeApi;
+import com.avsoftware.data.recipe.api.RecipeApiImpl;
 import com.avsoftware.data.recipe.RecipeProviderImpl;
 import com.avsoftware.domain.recipe.RecipeProvider;
-import com.avsoftware.domain.recipe.RecipeRepository;
 
 import javax.inject.Named;
 
@@ -31,10 +30,5 @@ class RecipeModule {
     @Provides
     static RecipeProvider provideRecipeProvider( RecipeApi api){
         return new RecipeProviderImpl(api);
-    }
-
-    @Provides
-    static RecipeRepository provideRecipeRepository(RecipeProvider provider){
-        return new RecipeRepository(provider);
     }
 }

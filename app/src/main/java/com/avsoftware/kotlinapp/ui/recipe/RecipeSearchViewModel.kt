@@ -5,7 +5,6 @@ import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.ViewModel
 import android.view.View
 import com.avsoftware.domain.recipe.RecipeInfo
-import com.avsoftware.domain.recipe.RecipeRepository
 import com.avsoftware.kotlinapp.R
 
 import com.jakewharton.rxrelay2.BehaviorRelay

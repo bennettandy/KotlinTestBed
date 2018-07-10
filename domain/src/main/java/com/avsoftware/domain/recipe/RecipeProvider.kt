@@ -3,10 +3,11 @@ package com.avsoftware.domain.recipe
 import android.arch.lifecycle.MutableLiveData
 import io.reactivex.Single
 
-abstract class RecipeProvider {
+interface RecipeProvider {
 
-    val currentProgress: MutableLiveData<Int> = MutableLiveData()
-    val progressTarget: MutableLiveData<Int> = MutableLiveData()
+    // TODO: Not happy with this, but allows us to show loading progress
+    val currentProgress: MutableLiveData<Int>
+    val progressTarget: MutableLiveData<Int>
 
-    abstract fun searchRecipes(searchString: String?): Single<List<RecipeInfo>>
+    fun searchRecipes(searchString: String?): Single<List<RecipeInfo>>
 }

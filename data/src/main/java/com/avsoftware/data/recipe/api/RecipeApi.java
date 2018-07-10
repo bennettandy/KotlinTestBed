@@ -1,4 +1,4 @@
-package com.avsoftware.data.recipe;
+package com.avsoftware.data.recipe.api;
 
 import java.util.List;
 

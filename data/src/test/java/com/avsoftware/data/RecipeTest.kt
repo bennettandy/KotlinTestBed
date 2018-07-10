@@ -1,8 +1,6 @@
 package com.avsoftware.data
 
-import com.avsoftware.data.recipe.Recipe
 import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
 import org.junit.Test
 
 class RecipeTest {

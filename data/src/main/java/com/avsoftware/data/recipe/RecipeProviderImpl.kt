@@ -1,11 +1,19 @@
 package com.avsoftware.data.recipe
 
+import android.arch.lifecycle.MutableLiveData
+import com.avsoftware.data.recipe.api.Recipe
+import com.avsoftware.data.recipe.api.RecipeApi
+import com.avsoftware.data.recipe.api.RecipeDetails
+import com.avsoftware.data.recipe.api.RecipeSearchRequest
 import com.avsoftware.domain.recipe.RecipeInfo
 import com.avsoftware.domain.recipe.RecipeProvider
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class RecipeProviderImpl(val recipeApi: RecipeApi) : RecipeProvider() {
+class RecipeProviderImpl(val recipeApi: RecipeApi) : RecipeProvider {
+
+    override val currentProgress: MutableLiveData<Int> = MutableLiveData()
+    override val progressTarget: MutableLiveData<Int> = MutableLiveData()
 
     override fun searchRecipes(searchString: String?) = Single.just(searchString)
             .doOnSubscribe() { _ ->
