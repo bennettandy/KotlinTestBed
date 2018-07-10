@@ -14,11 +14,6 @@
         android:name="com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment"
         android:label="DashboardFragment" />
     <fragment
-        android:id="@+id/notificationsFragment"
-        android:name="com.avsoftware.kotlinapp.ui.notifications.NotificationsFragment"
-        android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
         android:id="@+id/recipeSearchFragment"
         android:name="com.avsoftware.kotlinapp.ui.recipe.fragment.RecipeSearchFragment"
         android:label="RecipeSearchFragment" >
@@ -31,5 +26,10 @@
         android:name="com.avsoftware.kotlinapp.ui.recipe.fragment.RecipeDetailsFragment"
         android:label="RecipeDetailsFragment" >
     </fragment>
+    <fragment
+        android:id="@+id/cocktailFragment "
+        android:name="com.avsoftware.kotlinapp.ui.cocktail.NotificationsFragment"
+        android:label="fragment_cocktail_main"
+        tools:layout="@layout/fragment_cocktail_main" />
 
 </navigation>

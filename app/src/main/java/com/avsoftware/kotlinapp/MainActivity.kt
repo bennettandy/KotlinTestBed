@@ -8,14 +8,12 @@ import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment
-import com.avsoftware.kotlinapp.ui.notifications.NotificationsFragment
+import com.avsoftware.kotlinapp.ui.cocktail.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.math.BigDecimal
-
-import androidx.core.os.bundleOf
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {
 
+    //
     override fun onFragmentInteraction(uri: Uri) {
         Log.d("MainActivity", "Fragment Interaction: ${uri.toString()}")
     }
@@ -28,19 +26,15 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractio
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                //message.setText(R.string.title_home)
-                // not 100% sure what this labelled return means
                 mNavController.navigate(R.id.homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                //message.setText(R.string.title_dashboard)
                 mNavController.navigate(R.id.dashboardFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                //message.setText(R.string.title_notifications)
-                mNavController.navigate(R.id.notificationsFragment)
+                mNavController.navigate(R.id.cocktailFragment)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -54,24 +48,9 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractio
         mNavController = findNavController(this, R.id.my_nav_host_fragment)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        doStuff()
-    }
-
-    private fun doStuff(){
-        val bigDecimal = 100.bd()
-        println("BigDecimal $bigDecimal")
-
-        val url = "https://jsonplaceholder.typicode.com/posts/1"
-
-        val ctx = baseContext;
-        val bundle = bundleOf()
     }
 
     // Navigation allow intercept of back button by navigation controller
     override fun onSupportNavigateUp()
             = findNavController(this, R.id.my_nav_host_fragment).navigateUp()
 }
-
-// extension function on Int
-fun Int.bd(): BigDecimal = BigDecimal(this)
