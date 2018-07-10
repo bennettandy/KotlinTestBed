@@ -1,5 +1,6 @@
 package com.avsoftware.data.dagger;
 
+import com.avsoftware.data.cocktail.CocktailApi;
 import com.avsoftware.domain.recipe.RecipeProvider;
 
 import dagger.Component;
@@ -8,4 +9,5 @@ import dagger.Component;
 public interface DataComponent {
 
     RecipeProvider provideRecipeProvider();
+    CocktailApi provideCocktailApi();
 }

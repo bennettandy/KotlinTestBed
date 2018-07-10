@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/cocktailFragment "
-        android:name="com.avsoftware.kotlinapp.ui.cocktail.NotificationsFragment"
+        android:name="com.avsoftware.kotlinapp.ui.cocktail.CocktailMainFragment"
         android:label="fragment_cocktail_main"
         tools:layout="@layout/fragment_cocktail_main" />
 

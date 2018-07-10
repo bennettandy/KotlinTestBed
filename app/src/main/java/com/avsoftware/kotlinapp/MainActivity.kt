@@ -8,10 +8,9 @@ import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment
-import com.avsoftware.kotlinapp.ui.cocktail.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractionListener {
 
     //
     override fun onFragmentInteraction(uri: Uri) {
