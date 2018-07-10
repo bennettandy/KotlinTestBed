@@ -18,18 +18,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class Retrofit2Module {
+class Retrofit2Module {
 
     private final static int TIMEOUT_CONNECT = 10; // 10 secs
     private final static int TIMEOUT_READ = 15; // 15 secs
     private final static int TIMEOUT_WRITE = 15; // 15 secs
-
-    private static final String FOOD_2_FORK_BASE_URL = "http://food2fork.com";
-
-    @Provides
-    static Retrofit provideSafetonetRetrofit(Retrofit.Builder builder) {
-        return builder.baseUrl(FOOD_2_FORK_BASE_URL + "/").build();
-    }
 
     @Provides
     static Retrofit.Builder provideRetrofitBuilder(OkHttpClient okHttpClient, Gson gson) {

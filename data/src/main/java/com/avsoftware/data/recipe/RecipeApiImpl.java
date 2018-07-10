@@ -12,10 +12,10 @@ import retrofit2.http.Query;
 
 public class RecipeApiImpl implements RecipeApi {
 
-    private RecipeRetrofit mApi;
+    private IRecipeRetrofit mApi;
 
     public RecipeApiImpl(Retrofit retrofit) {
-        mApi = retrofit.create(RecipeRetrofit.class);
+        mApi = retrofit.create(IRecipeRetrofit.class);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RecipeApiImpl implements RecipeApi {
     }
 
 
-    private interface RecipeRetrofit {
+    private interface IRecipeRetrofit {
 
         @GET("api/search")
         Single<RecipeResponse> getRecipes(@Query("key") String apiKey, @Query("q") String query, @Query("sort") String sort, @Query("page") Integer page);
