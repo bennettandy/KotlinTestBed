@@ -11,7 +11,7 @@ import timber.log.Timber
 class KotlinApp: Application(){
 
     companion object {
-        //platformStatic allow access it from java code
+        //platformStatic allow access it from java code, hide setters
         @JvmStatic lateinit var graph: ApplicationComponent private set
         @JvmStatic lateinit var app: KotlinApp private set
     }
