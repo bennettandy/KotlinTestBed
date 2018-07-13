@@ -53,6 +53,11 @@ class CocktailMainFragment : Fragment() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        disposable.clear()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
