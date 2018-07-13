@@ -10,12 +10,7 @@ import androidx.navigation.Navigation.findNavController
 import com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), DashboardFragment.OnFragmentInteractionListener {
-
-    //
-    override fun onFragmentInteraction(uri: Uri) {
-        Log.d("MainActivity", "Fragment Interaction: ${uri.toString()}")
-    }
+class MainActivity : AppCompatActivity() {
 
     lateinit var mNavController: NavController
 

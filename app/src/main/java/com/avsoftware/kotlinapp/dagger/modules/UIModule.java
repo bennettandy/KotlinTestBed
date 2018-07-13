@@ -23,4 +23,5 @@ public class UIModule {
     static RecipeRepository provideRecipeRepository(RecipeProvider provider){
         return new RecipeRepository(provider);
     }
+
 }
