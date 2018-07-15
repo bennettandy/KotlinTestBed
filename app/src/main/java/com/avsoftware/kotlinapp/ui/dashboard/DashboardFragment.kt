@@ -19,10 +19,14 @@ class DashboardFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // should retain current view model instance through config change
+        Timber.d("View model is initialised? " + this::viewModel.isInitialized)
+        // Obtains and retains view model instance through config changes
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
 
-        Timber.d("Got ViewModel: $viewModel")
+        Timber.d("Got ViewModel: ${viewModel.hashCode()}")
+
+        Timber.d("View model is initialised? " + this::viewModel.isInitialized)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,21 +34,6 @@ class DashboardFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-//        if (context is OnFragmentInteractionListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        //listener = null
-    }
-
 
 
 }

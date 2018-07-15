@@ -1,13 +1,10 @@
 package com.avsoftware.kotlinapp
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
-import com.avsoftware.kotlinapp.ui.dashboard.DashboardFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,18 +18,23 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_home -> {
                 mNavController.navigate(R.id.homeFragment)
-                return@OnNavigationItemSelectedListener true
+                true
+            }
+            R.id.recipe_search -> {
+                mNavController.navigate(R.id.recipeSearchFragment)
+                true
             }
             R.id.navigation_dashboard -> {
                 mNavController.navigate(R.id.dashboardFragment)
-                return@OnNavigationItemSelectedListener true
+                true
             }
             R.id.navigation_notifications -> {
                 mNavController.navigate(R.id.cocktailFragment)
-                return@OnNavigationItemSelectedListener true
+                true
             }
+            else -> false
         }
-        false
+        //false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

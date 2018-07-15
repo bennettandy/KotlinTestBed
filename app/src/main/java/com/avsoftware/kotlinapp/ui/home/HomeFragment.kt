@@ -21,10 +21,6 @@ import com.google.firebase.auth.FirebaseUser
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        const val RC_SIGN_IN = 123
-    }
-
     private lateinit var viewModel: HomeViewModel
 
     private lateinit var viewBinding: HomeFragmentBinding
