@@ -55,3 +55,18 @@ open class Foo {
 class Bar1 : Foo() {
     override val x: Int = 5
 }
+
+
+fun foo() {
+    val adHoc = object {
+        var x: Int = 0
+        var y: Int = 0
+    }
+    print(adHoc.x + adHoc.y)
+
+    val comp: Comparator<Int> = object : Comparator<Int> {
+        override fun compare(o1: Int?, o2: Int?): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+}

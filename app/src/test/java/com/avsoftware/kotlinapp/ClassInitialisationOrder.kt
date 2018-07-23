@@ -21,6 +21,23 @@ class ADerived(
             (super.size + lastName.length).also { println("Initializing size in Derived: $it") }
 }
 
+open class AFoo {
+    open fun f() { println("Foo.f()") }
+    open val x: Int get() = 1
+}
+
+class Bar : AFoo() {
+    override fun f() { /* ... */ }
+    override val x: Int get() = 0
+
+    inner class Baz {
+        fun g() {
+            super@Bar.f() // Calls Foo's implementation of f()
+            println(super@Bar.x) // Uses Foo's implementation of x's getter
+        }
+    }
+}
+
 
 class TestingInitOrder {
 
