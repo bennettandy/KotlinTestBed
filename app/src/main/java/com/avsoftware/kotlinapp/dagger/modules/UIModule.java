@@ -12,16 +12,16 @@ import dagger.Provides;
 @Module
 public class UIModule {
 
-    @Provides
-    @Singleton
-    static RecipeSearchViewModel provideSearchActivityViewModel(RecipeRepository repository){
-        return new RecipeSearchViewModel(repository);
-    }
-
-    @Provides
-    @Singleton
-    static RecipeRepository provideRecipeRepository(RecipeProvider provider){
-        return new RecipeRepository(provider);
-    }
+//    @Provides
+//    @Singleton
+//    static RecipeSearchViewModel provideSearchActivityViewModel(RecipeRepository repository){
+//        return new RecipeSearchViewModel(repository);
+//    }
+//
+//    @Provides
+//    @Singleton
+//    static RecipeRepository provideRecipeRepository(RecipeProvider provider){
+//        return new RecipeRepository(provider);
+//    }
 
 }

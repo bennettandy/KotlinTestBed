@@ -32,6 +32,8 @@ class HomeFragment : Fragment() {
 
         viewBinding = HomeFragmentBinding.inflate(inflater)
 
+        viewBinding.viewModel
+
         return viewBinding.root
     }
 

@@ -1,6 +1,10 @@
 package com.avsoftware.kotlinapp
 
+import android.test.MoreAsserts.assertEquals
+import org.junit.Assert
 import org.junit.Test
+import org.junit.runners.JUnit4
+import java.util.concurrent.atomic.AtomicInteger
 
 class AlgorithmExamples {
 
@@ -44,5 +48,21 @@ class AlgorithmExamples {
         }
     }
 
+
+    @Test
+    fun givenLazyValue_whenGetIt_thenShouldInitializeItOnlyOnce() {
+        // given
+        val numberOfInitializations: AtomicInteger = AtomicInteger()
+        val lazyValue: String by lazy {
+            numberOfInitializations.incrementAndGet()
+            "Hello"
+            }
+        // when
+        println(lazyValue)
+        println(lazyValue)
+
+        // then
+        Assert.assertEquals(numberOfInitializations.get(), 1)
+    }
 
 }

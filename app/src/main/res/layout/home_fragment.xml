@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.avsoftware.kotlinapp.ui.home.HomeViewModel" />
@@ -22,7 +24,7 @@
             android:layout_marginBottom="10dp"
             android:padding="5dp"
             android:gravity="center"
-            android:text="Home Fragment" />
+            android:text="@{viewModel.text}" />
 
         <Button
             android:id="@+id/recipe_btn"

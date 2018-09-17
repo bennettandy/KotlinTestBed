@@ -15,6 +15,8 @@ import com.avsoftware.domain.recipe.RecipeInfo
 import com.avsoftware.kotlinapp.KotlinApp
 import com.avsoftware.kotlinapp.R
 import com.avsoftware.kotlinapp.databinding.RecipeSearchFragmentBinding
+import com.avsoftware.kotlinapp.di.RecipeSubComponent
+import com.avsoftware.kotlinapp.di.RecipeSubModule
 import com.avsoftware.kotlinapp.ui.recipe.RecipeSearchViewModel
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
@@ -31,7 +33,10 @@ class RecipeSearchFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        KotlinApp.graph.inject(this)
+        //KotlinApp.graph.inject(this)
+
+        val recipeComponent = KotlinApp.graph.add(RecipeSubModule(activity ))
+        recipeComponent.inject(this)
 
         mViewBinding = DataBindingUtil.inflate(inflater, R.layout.recipe_search_fragment, container, false)
         mViewBinding.setLifecycleOwner(this)
