@@ -1,4 +1,4 @@
-package com.avsoftware.domain;
+package com.avsoftware.kotlinapp;
 
 import org.junit.Test;
 

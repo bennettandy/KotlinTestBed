@@ -99,7 +99,7 @@ class HomeFragment : Fragment() {
             val userAuth = FirebaseAuth.getInstance()
             if (userAuth != null) {
                 // Successfully signed in
-                val userId = userAuth?.currentUser?.let {
+                val userId = userAuth.currentUser?.let {
                     Timber.d("Successful Authentication: ${it.uid}")
 
                     if (!it.isEmailVerified){

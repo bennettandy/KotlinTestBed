@@ -1,16 +1,11 @@
 package com.avsoftware.kotlinapp
 
-import android.app.Activity
 import android.app.Application
-import com.avsoftware.data.dagger.DaggerDataComponent
 import com.avsoftware.data.dagger.DataComponent
 import com.avsoftware.kotlinapp.dagger.ApplicationComponent
-import com.avsoftware.kotlinapp.dagger.DaggerApplicationComponent
+import io.realm.Realm
 import rx_activity_result2.RxActivityResult
 import timber.log.Timber
-import dagger.android.DispatchingAndroidInjector
-import javax.inject.Inject
-
 
 
 class KotlinApp: Application() {
@@ -25,6 +20,8 @@ class KotlinApp: Application() {
         super.onCreate()
 
         app = this
+
+        initRealm()
 
         // logging framework
         Timber.plant(Timber.DebugTree())
@@ -43,5 +40,19 @@ class KotlinApp: Application() {
 
         graph.inject(this)
 
+    }
+
+    private fun initRealm() : Unit {
+        //Realm.init(this)
+//        Stetho.initialize(Stetho.newInitializerBuilder(this)
+//                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+//                .enableWebKitInspector(
+//                        Realm.builder(this)
+//                                .withDeleteIfMigrationNeeded(true) //if there is any changes in database schema then rebuild bd.
+//                                .withMetaTables() //extract table meta data
+//                                .withLimit(10000) //by default limit of data id 250, but you can increase with this
+//                                .build()
+//                )
+//                .build())
     }
 }

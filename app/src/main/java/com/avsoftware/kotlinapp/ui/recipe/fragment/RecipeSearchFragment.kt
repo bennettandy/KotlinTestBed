@@ -1,11 +1,9 @@
 package com.avsoftware.kotlinapp.ui.recipe.fragment
 
-import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,6 @@ import com.avsoftware.domain.recipe.RecipeInfo
 import com.avsoftware.kotlinapp.KotlinApp
 import com.avsoftware.kotlinapp.R
 import com.avsoftware.kotlinapp.databinding.RecipeSearchFragmentBinding
-import com.avsoftware.kotlinapp.di.RecipeSubComponent
 import com.avsoftware.kotlinapp.di.RecipeSubModule
 import com.avsoftware.kotlinapp.ui.recipe.RecipeSearchViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -33,8 +30,6 @@ class RecipeSearchFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        //KotlinApp.graph.inject(this)
-
         val recipeComponent = KotlinApp.graph.add(RecipeSubModule(activity ))
         recipeComponent.inject(this)
 
@@ -49,7 +44,7 @@ class RecipeSearchFragment: Fragment() {
 
         mViewBinding.viewModel = mViewModelRecipe
 
-        mViewBinding.recyclerView.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
+        mViewBinding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         // connect search
         mDisposable.add(mViewModelRecipe.connectSearch()
